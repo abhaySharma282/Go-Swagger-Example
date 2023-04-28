@@ -1,0 +1,130 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "Schemes:\nhttp",
+    "title": "E-Food",
+    "version": "1.0.0"
+  },
+  "host": "e-food.com",
+  "basePath": "/v1",
+  "paths": {
+    "/categories": {
+      "get": {
+        "description": "It returns a list of nested objects which contains all categories and sub-categories required to create menu",
+        "tags": [
+          "menu"
+        ],
+        "summary": "Get menu items for the app",
+        "operationId": "categoryList"
+      }
+    }
+  },
+  "definitions": {
+    "Categories": {
+      "description": "Categories categories",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Category"
+      },
+      "x-go-package": "e-food/models"
+    },
+    "Category": {
+      "description": "Category category",
+      "type": "object",
+      "properties": {
+        "bcId": {
+          "description": "bc Id",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "BcID"
+        },
+        "bcImageUrl": {
+          "description": "bc image Url",
+          "type": "string",
+          "x-go-name": "BcImageURL"
+        },
+        "bcIsActive": {
+          "description": "bc is active",
+          "type": "boolean",
+          "x-go-name": "BcIsActive"
+        },
+        "bcName": {
+          "description": "bc name",
+          "type": "string",
+          "x-go-name": "BcName"
+        },
+        "subCategories": {
+          "description": "sub categories",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubCategory"
+          },
+          "x-go-name": "SubCategories"
+        }
+      },
+      "x-go-package": "e-food/models"
+    },
+    "SubCategory": {
+      "description": "SubCategory sub category",
+      "type": "object",
+      "properties": {
+        "scId": {
+          "description": "sc Id",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ScID"
+        },
+        "scImageUrl": {
+          "description": "sc image Url",
+          "type": "string",
+          "x-go-name": "ScImageURL"
+        },
+        "scIsActive": {
+          "description": "sc is active",
+          "type": "boolean",
+          "x-go-name": "ScIsActive"
+        },
+        "scName": {
+          "description": "sc name",
+          "type": "string",
+          "x-go-name": "ScName"
+        }
+      },
+      "x-go-package": "e-food/models"
+    }
+  },
+  "responses": {
+    "categoryListBadRequest": {
+      "description": "CategoryListBadRequest Bad Request"
+    },
+    "categoryListInternalServerError": {
+      "description": "CategoryListInternalServerError Server Error",
+      "headers": {
+        "body": {
+          "type": "string",
+          "description": "In: Body"
+        }
+      }
+    },
+    "categoryListNotFound": {
+      "description": "CategoryListNotFound Categories Not Found"
+    },
+    "categoryListOK": {
+      "description": "CategoryListOK List of Categories",
+      "schema": {
+        "$ref": "#/definitions/Categories"
+      },
+      "headers": {
+        "body": {
+          "description": "In: Body"
+        }
+      }
+    }
+  }
+}
